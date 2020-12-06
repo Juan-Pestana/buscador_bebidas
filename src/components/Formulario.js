@@ -10,6 +10,9 @@ const Formulario = () => {
         categoria: ''
     })
 
+
+    const [alert, setAlert] = useState(false)
+
     const {categorias} = useContext(CategoriasContext)
     const {setBuscarRecetas, setConsultar} = useContext(RecetasContext)
 
@@ -21,20 +24,35 @@ const Formulario = () => {
         })
     }
 
+    const handleSubmit = e =>{
+        e.preventDefault()
+
+        if(busqueda.nombre === '' || busqueda.categoria === ''){
+            setAlert(true)
+            return
+        }
+
+        setConsultar(true)
+        setBuscarRecetas(busqueda)
+        setAlert(false)
+        setBusqueda({
+            nombre: '',
+            categoria: ''
+        })
+
+
+    }
+
     return (
         <>
-            <form className='col-12' onSubmit={ e =>{
-                    e.preventDefault()
-                    setConsultar(true)
-                    setBuscarRecetas(busqueda)
-            }
-                }>
+            <form className='col-12' onSubmit={ handleSubmit}>
+                {alert ? (<h2>Rellena ambos campos porfavor</h2>) : null}
                 <fieldset className='text-center'>
                     <legend>Busca Bebidas por categoria</legend>
                 </fieldset>
                 <div className="row mt-4">
                     <div className="col-md-4">
-                        <input type="text" name='nombre' onChange={handleChanghe} placeholder='selecciona el ingrediente' className="form-control"/>
+                        <input type="text" name='nombre' value={busqueda.nombre} onChange={handleChanghe} placeholder='selecciona el ingrediente' className="form-control"/>
                     </div>
                     <div className="col-md-4">
                         <select name="categoria" className="form-control" onChange={handleChanghe}>

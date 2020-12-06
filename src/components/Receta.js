@@ -51,7 +51,7 @@ const Receta = ({receta}) => {
 
         const {setIdReceta, infoReceta, setReceta} = useContext(ModalContext)
 
-        console.log(infoReceta)
+        // console.log(infoReceta)
 
         const mostrarIngredientes = informacion => {
             let ingredientes=[];

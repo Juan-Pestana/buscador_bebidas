@@ -8,7 +8,7 @@ const ListaRecetas = () => {
     const {recetas }= useContext(RecetasContext)
     console.log(recetas)
 
-    if (recetas.length < 1) return null
+    if (!recetas) return null
 
     return (
         <>
